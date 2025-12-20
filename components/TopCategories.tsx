@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import engineringBooksImage from "@/public/images/engineering-books.png";
 import higherEducationImage from "@/public/images/higherEducation.png";
 import booksManagementsImage from "@/public/images/bookManagements.png";
+import { useRouter } from "next/navigation";
 
 const TopCategories = () => {
+  const router = useRouter();
   return (
     <section className="px-14 py-4 bg-white">
       <div className="w-full">
@@ -113,9 +115,10 @@ const TopCategories = () => {
         {/* View More Button */}
         <div className="flex justify-center">
           <Button
+            onClick={() => router.push("/books")}
             variant="outline"
             size="lg"
-            className="border-2 border-[#393280] text-[#393280] hover:bg-[#393280] hover:text-white px-8 py-6 text-base font-medium rounded-lg group bg-transparent"
+            className="cursor-pointer border-2 border-[#393280] text-[#393280] hover:bg-[#393280] hover:text-white px-8 py-6 text-base font-medium rounded-lg group bg-transparent"
           >
             VIEW MORE
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

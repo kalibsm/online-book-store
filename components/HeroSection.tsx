@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
@@ -8,8 +9,10 @@ import doctorWhoImage from "@/public/images/doctor-who.png";
 import slugfestImage from "@/public/images/slugfest.png";
 import fatherhoodImage from "@/public/images/fatherhood.png";
 import silentPatientImage from "@/public/images/the-silent-patient.png";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
+  const router = useRouter();
   return (
     <section className="bg-[url(/images/Rectangle2.png)] bg-cover overflow-x-hidden">
       <div className="container py-4 px-14">
@@ -24,9 +27,10 @@ const HeroSection = () => {
               ut magna velit eleifend. Amet, quis urna, a eu.
             </p>
             <Button
+              onClick={() => router.push("/new-release")}
               variant="outline"
               size="lg"
-              className="border-2 border-[#3D2E7C] text-[#3D2E7C] hover:bg-[#3D2E7C] hover:text-white mt-2 bg-transparent"
+              className="cursor-pointer border-2 border-[#3D2E7C] text-[#3D2E7C] hover:bg-[#3D2E7C] hover:text-white mt-2 bg-transparent"
             >
               READ MORE →
             </Button>
