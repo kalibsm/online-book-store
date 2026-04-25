@@ -1,0 +1,161 @@
+// Prisma schema — MongoDB provider.
+// Mirrors the MongoEngine documents used by the Django backend.
+// Use this for type-safe queries from Next.js server components.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL") // e.g. mongodb://localhost:27017/bookstore_db
+}
+
+// ─── Users ──────────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  username  String   @unique
+  password  String
+  phone     String   @default("")
+  address   String   @default("")
+  avatar    String?
+  isActive  Boolean  @default(true)
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reviews  Review[]
+  cart     Cart?
+  orders   Order[]
+  wishlist Wishlist?
+
+  @@map("users")
+}
+
+// ─── Categories ─────────────────────────────────────────────────────────────
+
+model Category {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  slug        String   @unique
+  description String   @default("")
+  image       String?
+  createdAt   DateTime @default(now())
+
+  books Book[]
+
+  @@map("categories")
+}
+
+// ─── Books ───────────────────────────────────────────────────────────────────
+
+model Book {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  author       String
+  isbn         String    @unique
+  description  String    @default("")
+  price        Float
+  categoryId   String?   @db.ObjectId
+  image        String?
+  stock        Int       @default(0)
+  publishedDate DateTime?
+  isFeatured   Boolean   @default(false)
+  isNewRelease Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  category   Category?  @relation(fields: [categoryId], references: [id])
+  reviews    Review[]
+  wishlists  Wishlist[] @relation(fields: [wishlistIds], references: [id])
+  wishlistIds String[]  @db.ObjectId
+
+  @@map("books")
+}
+
+// ─── Reviews ────────────────────────────────────────────────────────────────
+
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  bookId    String   @db.ObjectId
+  rating    Int
+  comment   String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, bookId])
+  @@map("reviews")
+}
+
+// ─── Cart (with embedded items) ──────────────────────────────────────────────
+
+type CartItem {
+  bookId   String   @db.ObjectId
+  quantity Int
+  addedAt  DateTime
+}
+
+model Cart {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @unique @db.ObjectId
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("carts")
+}
+
+// ─── Orders (with embedded items) ────────────────────────────────────────────
+
+type OrderItem {
+  bookId    String?  @db.ObjectId
+  bookTitle String
+  quantity  Int
+  unitPrice Float
+}
+
+enum OrderStatus {
+  pending
+  confirmed
+  shipped
+  delivered
+  cancelled
+}
+
+model Order {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String      @db.ObjectId
+  status          OrderStatus @default(pending)
+  totalAmount     Float
+  shippingAddress String
+  notes           String      @default("")
+  items           OrderItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("orders")
+}
+
+// ─── Wishlist (books stored as array of ObjectIds) ────────────────────────────
+
+model Wishlist {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  bookIds   String[] @db.ObjectId
+  createdAt DateTime @default(now())
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  books Book[] @relation(fields: [bookIds], references: [id])
+
+  @@map("wishlists")
+}
