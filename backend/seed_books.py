@@ -29,6 +29,11 @@ CATEGORIES = [
     {"name": "Self-Help",      "slug": "self-help",      "description": "Guides to personal growth and improvement."},
 ]
 
+def ol_cover(isbn: str) -> str:
+    """Open Library cover image URL (large size) for a given ISBN."""
+    return f"https://covers.openlibrary.org/b/isbn/{isbn}-L.jpg"
+
+
 BOOKS = [
     # Fiction
     {
@@ -42,6 +47,7 @@ BOOKS = [
         "published_date": "1925-04-10",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780743273565"),
     },
     {
         "title": "To Kill a Mockingbird",
@@ -54,6 +60,7 @@ BOOKS = [
         "published_date": "1960-07-11",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780061935466"),
     },
     {
         "title": "1984",
@@ -66,6 +73,7 @@ BOOKS = [
         "published_date": "1949-06-08",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780451524935"),
     },
     {
         "title": "Pride and Prejudice",
@@ -78,6 +86,7 @@ BOOKS = [
         "published_date": "1813-01-28",
         "is_featured": False,
         "is_new_release": False,
+        "image": ol_cover("9780141439518"),
     },
     {
         "title": "The Catcher in the Rye",
@@ -90,6 +99,7 @@ BOOKS = [
         "published_date": "1951-07-16",
         "is_featured": False,
         "is_new_release": False,
+        "image": ol_cover("9780316769174"),
     },
     # Fantasy
     {
@@ -103,6 +113,7 @@ BOOKS = [
         "published_date": "1937-09-21",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780547928227"),
     },
     {
         "title": "Harry Potter and the Sorcerer's Stone",
@@ -115,6 +126,7 @@ BOOKS = [
         "published_date": "1997-06-26",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780590353427"),
     },
     {
         "title": "A Game of Thrones",
@@ -127,6 +139,7 @@ BOOKS = [
         "published_date": "1996-08-01",
         "is_featured": False,
         "is_new_release": False,
+        "image": ol_cover("9780553381689"),
     },
     {
         "title": "The Name of the Wind",
@@ -139,6 +152,7 @@ BOOKS = [
         "published_date": "2007-03-27",
         "is_featured": False,
         "is_new_release": True,
+        "image": ol_cover("9780756404741"),
     },
     # Mystery
     {
@@ -152,6 +166,7 @@ BOOKS = [
         "published_date": "2012-06-05",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780307588371"),
     },
     {
         "title": "The Girl with the Dragon Tattoo",
@@ -164,6 +179,7 @@ BOOKS = [
         "published_date": "2005-08-01",
         "is_featured": False,
         "is_new_release": False,
+        "image": ol_cover("9780307454546"),
     },
     {
         "title": "Big Little Lies",
@@ -176,6 +192,7 @@ BOOKS = [
         "published_date": "2014-07-29",
         "is_featured": False,
         "is_new_release": True,
+        "image": ol_cover("9780425274866"),
     },
     # Science & Tech
     {
@@ -189,6 +206,7 @@ BOOKS = [
         "published_date": "1988-04-01",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780553380163"),
     },
     {
         "title": "The Pragmatic Programmer",
@@ -201,6 +219,7 @@ BOOKS = [
         "published_date": "2019-09-23",
         "is_featured": False,
         "is_new_release": True,
+        "image": ol_cover("9780135957059"),
     },
     {
         "title": "Clean Code",
@@ -213,6 +232,7 @@ BOOKS = [
         "published_date": "2008-08-01",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780132350884"),
     },
     # Non-Fiction
     {
@@ -226,6 +246,7 @@ BOOKS = [
         "published_date": "2011-01-01",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9780062316097"),
     },
     {
         "title": "Educated",
@@ -238,6 +259,7 @@ BOOKS = [
         "published_date": "2018-02-20",
         "is_featured": False,
         "is_new_release": True,
+        "image": ol_cover("9780399590504"),
     },
     # Biography
     {
@@ -251,6 +273,7 @@ BOOKS = [
         "published_date": "2011-10-24",
         "is_featured": True,
         "is_new_release": False,
+        "image": ol_cover("9781451648539"),
     },
     {
         "title": "Becoming",
@@ -263,6 +286,7 @@ BOOKS = [
         "published_date": "2018-11-13",
         "is_featured": True,
         "is_new_release": True,
+        "image": ol_cover("9781524763138"),
     },
     # History
     {
@@ -276,6 +300,7 @@ BOOKS = [
         "published_date": "1962-08-01",
         "is_featured": False,
         "is_new_release": False,
+        "image": ol_cover("9780345476098"),
     },
     {
         "title": "SPQR: A History of Ancient Rome",
@@ -288,6 +313,7 @@ BOOKS = [
         "published_date": "2015-11-17",
         "is_featured": False,
         "is_new_release": True,
+        "image": ol_cover("9781631492228"),
     },
     # Self-Help
     {
@@ -301,6 +327,7 @@ BOOKS = [
         "published_date": "2018-10-16",
         "is_featured": True,
         "is_new_release": True,
+        "image": ol_cover("9780735211292"),
     },
     {
         "title": "The 7 Habits of Highly Effective People",
@@ -313,6 +340,7 @@ BOOKS = [
         "published_date": "1989-08-15",
         "is_featured": False,
         "is_new_release": False,
+        "image": ol_cover("9780743269513"),
     },
 ]
 
@@ -359,7 +387,6 @@ def main():
         doc = {
             **book,
             "category": category_id_map.get(slug),
-            "image": None,
             "created_at": now,
             "updated_at": now,
         }
