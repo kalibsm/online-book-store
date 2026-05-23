@@ -45,7 +45,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-lg text-muted-foreground">
-              Have a question or need assistance? We're here to help. Reach out
+              Have a question or need assistance? We&apos;re here to help. Reach out
               to us anytime.
             </p>
           </div>
@@ -340,7 +340,7 @@ export default function ContactPage() {
                   Can I track my order?
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Yes, once your order ships, you'll receive a tracking number
+                  Yes, once your order ships, you&apos;ll receive a tracking number
                   via email to monitor your delivery.
                 </p>
               </div>

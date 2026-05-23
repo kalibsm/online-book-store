@@ -119,7 +119,7 @@ export default function AboutPage() {
                 Customer First
               </h3>
               <p className="text-muted-foreground">
-                Your satisfaction is our priority. We're committed to providing
+                Your satisfaction is our priority. We&apos;re committed to providing
                 exceptional service and support at every step.
               </p>
             </div>

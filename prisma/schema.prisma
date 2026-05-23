@@ -1,6 +1,6 @@
 // Prisma schema — MongoDB provider.
-// Mirrors the MongoEngine documents used by the Django backend.
-// Use this for type-safe queries from Next.js server components.
+// Used by Next.js server components to query the shared MongoDB database.
+// All collections mirror the MongoEngine documents defined in backend/store/models.py.
 
 generator client {
   provider = "prisma-client-js"
@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL") // e.g. mongodb://localhost:27017/bookstore_db
+  url      = env("DATABASE_URL")
 }
 
 // ─── Users ──────────────────────────────────────────────────────────────────
@@ -52,25 +52,25 @@ model Category {
 // ─── Books ───────────────────────────────────────────────────────────────────
 
 model Book {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  title        String
-  author       String
-  isbn         String    @unique
-  description  String    @default("")
-  price        Float
-  categoryId   String?   @db.ObjectId
-  image        String?
-  stock        Int       @default(0)
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  author        String
+  isbn          String    @unique
+  description   String    @default("")
+  price         Float
+  categoryId    String?   @db.ObjectId
+  image         String?
+  stock         Int       @default(0)
   publishedDate DateTime?
-  isFeatured   Boolean   @default(false)
-  isNewRelease Boolean   @default(false)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  isFeatured    Boolean   @default(false)
+  isNewRelease  Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  category   Category?  @relation(fields: [categoryId], references: [id])
-  reviews    Review[]
-  wishlists  Wishlist[] @relation(fields: [wishlistIds], references: [id])
-  wishlistIds String[]  @db.ObjectId
+  category    Category?  @relation(fields: [categoryId], references: [id])
+  reviews     Review[]
+  wishlists   Wishlist[] @relation(fields: [wishlistIds], references: [id])
+  wishlistIds String[]   @db.ObjectId
 
   @@map("books")
 }
@@ -93,7 +93,7 @@ model Review {
   @@map("reviews")
 }
 
-// ─── Cart (with embedded items) ──────────────────────────────────────────────
+// ─── Cart (with embedded items) ─────────────────────────────────────────────
 
 type CartItem {
   bookId   String   @db.ObjectId
@@ -116,7 +116,7 @@ model Cart {
 // ─── Orders (with embedded items) ────────────────────────────────────────────
 
 type OrderItem {
-  bookId    String?  @db.ObjectId
+  bookId    String? @db.ObjectId
   bookTitle String
   quantity  Int
   unitPrice Float
@@ -146,7 +146,7 @@ model Order {
   @@map("orders")
 }
 
-// ─── Wishlist (books stored as array of ObjectIds) ────────────────────────────
+// ─── Wishlist ────────────────────────────────────────────────────────────────
 
 model Wishlist {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -154,8 +154,8 @@ model Wishlist {
   bookIds   String[] @db.ObjectId
   createdAt DateTime @default(now())
 
-  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  books Book[] @relation(fields: [bookIds], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  books   Book[] @relation(fields: [bookIds], references: [id])
 
   @@map("wishlists")
 }

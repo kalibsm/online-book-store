@@ -3,12 +3,10 @@ import Link from "next/link";
 import {
   Calendar,
   Facebook,
-  Instagram,
   Linkedin,
   Twitter,
   Youtube,
 } from "lucide-react";
-import footerImage from "@/public/images/footerbg.png";
 import Image from "next/image";
 import logoImage from "@/public/images/logo.png";
 import footerImage1 from "@/public/images/footerImage1.png";

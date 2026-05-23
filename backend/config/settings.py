@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 import mongoengine
 import os
 
-load_dotenv()
-
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / ".env.local")
 
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev-key-change-in-production")
 DEBUG = os.getenv("DEBUG", "True") == "True"
@@ -49,7 +49,7 @@ DATABASES = {
 }
 
 # MongoDB connection
-mongoengine.connect(host=os.getenv("MONGODB_URI", "mongodb://localhost:27017/bookstore_db"))
+mongoengine.connect(db="bookstore_db", host=os.getenv("MONGODB_URI", "mongodb://localhost:27017/bookstore_db"))
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
