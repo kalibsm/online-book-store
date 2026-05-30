@@ -151,11 +151,55 @@ Authentication header: `Authorization: Bearer <token>`
 
 ### Prerequisites
 
-- Node.js 18+
-- Python 3.10+
-- MongoDB Atlas URI (or a local MongoDB instance)
+- MongoDB Atlas URI (connection string for your cluster)
+- **Docker setup:** Docker + Docker Compose
+- **Manual setup:** Node.js 18+ and Python 3.10+
 
 ---
+
+## Option A — Docker (recommended)
+
+The fastest way to run the project with no local Python or Node.js setup required.
+
+### 1. Configure environment files
+
+Copy the example files and fill in your MongoDB Atlas credentials:
+
+```bash
+cp .env.local.example .env.local
+cp backend/.env.local.example backend/.env.local
+```
+
+Edit both files and replace the `<user>`, `<password>`, and `<cluster>` placeholders with your actual Atlas connection string.
+
+### 2. Build and start
+
+```bash
+docker compose up --build
+```
+
+- Frontend → [http://localhost:3000](http://localhost:3000)
+- Backend API → [http://localhost:8000/api/](http://localhost:8000/api/)
+
+> **Note:** If you have local dev servers already running on ports 3000 or 8000, stop them first.
+
+### 3. Seed the database (first run)
+
+While the containers are running, open a second terminal:
+
+```bash
+docker compose exec backend python seed_books.py
+```
+
+### 4. Stop
+
+```bash
+docker compose down
+```
+
+---
+
+## Option B — Manual setup
 
 ### 1. Clone and configure environment
 
@@ -178,7 +222,7 @@ CORS_ALLOWED_ORIGINS=http://localhost:3000
 
 ---
 
-### 2. Backend (Django)
+### 2. Backend setup (Django)
 
 ```bash
 cd backend
@@ -203,7 +247,7 @@ API available at [http://localhost:8000/api/](http://localhost:8000/api/).
 
 ---
 
-### 3. Seed the database
+### 3. Seed the database (manual)
 
 The seed script populates **8 categories** and **23 books** (a mix of featured and new releases):
 
@@ -219,7 +263,7 @@ Categories seeded: Fiction, Non-Fiction, Science & Tech, Fantasy, Mystery, Biogr
 
 ---
 
-### 4. Frontend (Next.js)
+### 4. Frontend setup (Next.js)
 
 ```bash
 # From the project root
